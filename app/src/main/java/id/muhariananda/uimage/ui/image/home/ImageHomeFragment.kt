@@ -1,22 +1,24 @@
-package id.muhariananda.uimage.ui.image
+package id.muhariananda.uimage.ui.image.home
 
 import android.os.Bundle
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import androidx.fragment.app.Fragment
-import id.muhariananda.uimage.databinding.FragmentDetailImageBinding
+import dagger.hilt.android.AndroidEntryPoint
+import id.muhariananda.uimage.databinding.FragmentHomeBinding
 
-class DetailImageFragment : Fragment() {
+@AndroidEntryPoint
+class ImageHomeFragment : Fragment() {
 
-    private var _binding: FragmentDetailImageBinding? = null
+    private var _binding: FragmentHomeBinding? = null
     private val binding get() = _binding!!
 
     override fun onCreateView(
         inflater: LayoutInflater, container: ViewGroup?,
         savedInstanceState: Bundle?
     ): View {
-        _binding = FragmentDetailImageBinding.inflate(inflater, container, false)
+        _binding = FragmentHomeBinding.inflate(inflater, container, false)
         return binding.root
     }
 
@@ -24,5 +26,4 @@ class DetailImageFragment : Fragment() {
         super.onDestroy()
         _binding = null
     }
-
 }

@@ -1,22 +1,24 @@
-package id.muhariananda.uimage.ui.image.home
+package id.muhariananda.uimage.ui.image.search
 
 import android.os.Bundle
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import androidx.fragment.app.Fragment
-import id.muhariananda.uimage.databinding.FragmentHomeBinding
+import dagger.hilt.android.AndroidEntryPoint
+import id.muhariananda.uimage.databinding.FragmentSearchImageBinding
 
-class HomeFragment : Fragment() {
+@AndroidEntryPoint
+class ImageSearchFragment : Fragment() {
 
-    private var _binding: FragmentHomeBinding? = null
+    private var _binding: FragmentSearchImageBinding? = null
     private val binding get() = _binding!!
 
     override fun onCreateView(
         inflater: LayoutInflater, container: ViewGroup?,
         savedInstanceState: Bundle?
     ): View {
-        _binding = FragmentHomeBinding.inflate(inflater, container, false)
+        _binding = FragmentSearchImageBinding.inflate(inflater, container, false)
         return binding.root
     }
 
@@ -24,4 +26,5 @@ class HomeFragment : Fragment() {
         super.onDestroy()
         _binding = null
     }
+
 }
