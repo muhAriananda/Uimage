@@ -9,26 +9,18 @@
         android:id="@+id/homeFragment"
         android:name="id.muhariananda.uimage.HomeFragment"
         android:label="fragment_home"
-        tools:layout="@layout/fragment_home" >
+        tools:layout="@layout/fragment_image_search" >
         <action
             android:id="@+id/action_homeFragment_to_detailImageFragment"
-            app:destination="@id/detailImageFragment" />
-        <action
-            android:id="@+id/action_homeFragment_to_searchImageFragment"
-            app:destination="@id/searchImageFragment" />
-    </fragment>
-    <fragment
-        android:id="@+id/searchImageFragment"
-        android:name="id.muhariananda.uimage.SearchImageFragment"
-        android:label="fragment_search_image"
-        tools:layout="@layout/fragment_search_image" >
-        <action
-            android:id="@+id/action_searchImageFragment_to_detailImageFragment"
             app:destination="@id/detailImageFragment" />
     </fragment>
     <fragment
         android:id="@+id/detailImageFragment"
         android:name="id.muhariananda.uimage.DetailImageFragment"
         android:label="fragment_detail_image"
-        tools:layout="@layout/fragment_detail_image" />
+        tools:layout="@layout/fragment_image_detail" >
+        <action
+            android:id="@+id/action_detailImageFragment_to_homeFragment"
+            app:destination="@id/homeFragment" />
+    </fragment>
 </navigation>

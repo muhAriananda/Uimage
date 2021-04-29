@@ -1,4 +1,4 @@
-package id.muhariananda.uimage.data.models.unsplash
+package id.muhariananda.uimage.data.models
 
 import android.os.Parcelable
 import kotlinx.android.parcel.Parcelize

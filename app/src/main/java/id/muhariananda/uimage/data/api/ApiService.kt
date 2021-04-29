@@ -1,19 +1,12 @@
 package id.muhariananda.uimage.data.api
 
 import id.muhariananda.uimage.BuildConfig
-import id.muhariananda.uimage.data.models.unsplash.UnsplashResponse
+import id.muhariananda.uimage.data.models.UnsplashResponse
 import retrofit2.http.GET
 import retrofit2.http.Headers
 import retrofit2.http.Query
 
-interface UnsplashApi {
-
-    @Headers("Accept-Version: v1", "Authorization: Client-ID $CLIENT_ID")
-    @GET("photos")
-    suspend fun getPhoto(
-        @Query("page") page: Int,
-        @Query("per_page") perPage: Int
-    ): UnsplashResponse
+interface ApiService {
 
     @Headers("Accept-Version: v1", "Authorization: Client-ID $CLIENT_ID")
     @GET("search/photos")
@@ -22,7 +15,6 @@ interface UnsplashApi {
         @Query("page") page: Int,
         @Query("per_page") perPage: Int
     ): UnsplashResponse
-
 
     companion object {
         const val BASE_URL = "https://api.unsplash.com/"
