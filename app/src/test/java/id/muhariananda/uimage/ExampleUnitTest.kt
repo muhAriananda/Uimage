@@ -1,4 +1,4 @@
-package id.muharianda.uimage
+package id.muhariananda.uimage
 
 import org.junit.Test
 

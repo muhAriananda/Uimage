@@ -1,0 +1,34 @@
+<?xml version="1.0" encoding="utf-8"?>
+<navigation xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:id="@+id/nav_graph"
+    app:startDestination="@id/homeFragment">
+
+    <fragment
+        android:id="@+id/homeFragment"
+        android:name="id.muhariananda.uimage.HomeFragment"
+        android:label="fragment_home"
+        tools:layout="@layout/fragment_home" >
+        <action
+            android:id="@+id/action_homeFragment_to_detailImageFragment"
+            app:destination="@id/detailImageFragment" />
+        <action
+            android:id="@+id/action_homeFragment_to_searchImageFragment"
+            app:destination="@id/searchImageFragment" />
+    </fragment>
+    <fragment
+        android:id="@+id/searchImageFragment"
+        android:name="id.muhariananda.uimage.SearchImageFragment"
+        android:label="fragment_search_image"
+        tools:layout="@layout/fragment_search_image" >
+        <action
+            android:id="@+id/action_searchImageFragment_to_detailImageFragment"
+            app:destination="@id/detailImageFragment" />
+    </fragment>
+    <fragment
+        android:id="@+id/detailImageFragment"
+        android:name="id.muhariananda.uimage.DetailImageFragment"
+        android:label="fragment_detail_image"
+        tools:layout="@layout/fragment_detail_image" />
+</navigation>
