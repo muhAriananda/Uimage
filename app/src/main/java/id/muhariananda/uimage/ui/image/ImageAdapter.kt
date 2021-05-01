@@ -5,9 +5,9 @@ import android.view.ViewGroup
 import androidx.paging.PagingDataAdapter
 import androidx.recyclerview.widget.DiffUtil
 import androidx.recyclerview.widget.RecyclerView
-import com.bumptech.glide.Glide
-import com.bumptech.glide.load.resource.drawable.DrawableTransitionOptions
-import com.bumptech.glide.request.RequestOptions
+import coil.load
+import coil.transform.CircleCropTransformation
+import coil.transform.RoundedCornersTransformation
 import id.muhariananda.uimage.R
 import id.muhariananda.uimage.data.models.UnsplashPhoto
 import id.muhariananda.uimage.databinding.ItemRowImageBinding
@@ -53,20 +53,17 @@ class ImageAdapter(private val listener: OnClickItemListener) :
                 tvUsername.text = item.user.username
                 imgThumb.layoutParams.height = item.height / 6
 
-                Glide.with(itemView)
-                    .load(item.urls.regular)
-                    .transition(DrawableTransitionOptions.withCrossFade())
-                    .apply(
-                        RequestOptions()
-                            .placeholder(R.color.city_light)
-                            .error(R.drawable.ic_error_image)
-                    )
-                    .into(imgThumb)
+                imgThumb.load(item.urls.regular) {
+                    transformations(RoundedCornersTransformation(50f))
+                    crossfade(true)
+                    placeholder(R.color.city_light)
+                    error(R.drawable.ic_error_image)
+                }
 
-                Glide.with(itemView)
-                    .load(item.user.urls.small)
-                    .circleCrop()
-                    .into(imgProfile)
+                imgProfile.load(item.user.urls.small) {
+                    placeholder(R.color.city_light)
+                    transformations(CircleCropTransformation())
+                }
 
             }
 

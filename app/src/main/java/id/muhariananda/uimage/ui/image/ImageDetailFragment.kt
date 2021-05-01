@@ -8,9 +8,9 @@ import android.view.View
 import android.view.ViewGroup
 import androidx.fragment.app.Fragment
 import androidx.navigation.fragment.navArgs
-import com.bumptech.glide.Glide
-import com.bumptech.glide.load.resource.drawable.DrawableTransitionOptions
-import com.bumptech.glide.request.RequestOptions
+import coil.load
+import coil.transform.CircleCropTransformation
+import coil.transform.RoundedCornersTransformation
 import dagger.hilt.android.AndroidEntryPoint
 import id.muhariananda.uimage.R
 import id.muhariananda.uimage.data.models.UnsplashPhoto
@@ -47,22 +47,21 @@ class ImageDetailFragment : Fragment() {
 
     private fun populateView(item: UnsplashPhoto) {
         binding.apply {
-            tvDetailUsername.text = item.user.username
-            tvDescription.text = item.description
 
-            Glide.with(this@ImageDetailFragment)
-                .load(item.user.urls.small)
-                .circleCrop()
-                .into(imgProfil)
+//            Glide.with(this@ImageDetailFragment)
+//                .load(item.user.urls.small)
+//                .circleCrop()
+//                .into(imgProfil)
+//
+//            Glide.with(this@ImageDetailFragment)
+//                .load(item.urls.regular)
+//                .transition(DrawableTransitionOptions.withCrossFade())
+//                .apply(
+//                    RequestOptions()
+//                        .placeholder(R.color.city_light)
+//                        .error(R.drawable.ic_error_image)
+//                ).into(imgDetail)
 
-            Glide.with(this@ImageDetailFragment)
-                .load(item.urls.regular)
-                .transition(DrawableTransitionOptions.withCrossFade())
-                .apply(
-                    RequestOptions()
-                        .placeholder(R.color.city_light)
-                        .error(R.drawable.ic_error_image)
-                ).into(imgDetail)
 
             val uri = Uri.parse(item.user.attributionUrls)
             val intentView = Intent(Intent.ACTION_VIEW, uri)
@@ -81,6 +80,25 @@ class ImageDetailFragment : Fragment() {
                 context?.startActivity(sendIntent)
             }
 
+            tvDetailUsername.text = item.user.username
+            tvDescription.text = item.description
+
+            imgDetail.load(item.urls.regular) {
+                crossfade(true)
+                placeholder(R.color.city_light)
+                transformations(
+                    RoundedCornersTransformation(
+                        bottomLeft = 70f,
+                        bottomRight = 70f
+                    )
+                )
+            }
+
+            imgProfil.load(item.user.urls.small) {
+                crossfade(true)
+                placeholder(R.color.city_light)
+                transformations(CircleCropTransformation())
+            }
         }
     }
 
