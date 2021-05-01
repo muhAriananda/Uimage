@@ -11,4 +11,6 @@ data class UnsplashPhoto(
     val user: UnsplashUser,
     val width: Int,
     val height: Int,
-): Parcelable
+): Parcelable {
+    val shareUrl get() = "https://unsplash.com/photos/$id"
+}

@@ -11,7 +11,7 @@
         android:label="fragment_home"
         tools:layout="@layout/fragment_image_search" >
         <action
-            android:id="@+id/action_homeFragment_to_detailImageFragment"
+            android:id="@+id/action_searchImageFragment_to_detailImageFragment"
             app:destination="@id/detailImageFragment" />
     </fragment>
 
@@ -20,9 +20,9 @@
         android:name="id.muhariananda.uimage.ui.image.ImageDetailFragment"
         android:label="fragment_detail_image"
         tools:layout="@layout/fragment_image_detail" >
-        <action
-            android:id="@+id/action_detailImageFragment_to_homeFragment"
-            app:destination="@id/searchImageFragment" />
+        <argument
+            android:name="photo"
+            app:argType="id.muhariananda.uimage.data.models.UnsplashPhoto" />
     </fragment>
 
 </navigation>

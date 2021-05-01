@@ -9,19 +9,21 @@ import androidx.appcompat.widget.SearchView
 import androidx.core.view.isVisible
 import androidx.fragment.app.Fragment
 import androidx.fragment.app.viewModels
+import androidx.navigation.fragment.findNavController
 import androidx.paging.LoadState
 import androidx.recyclerview.widget.StaggeredGridLayoutManager
 import dagger.hilt.android.AndroidEntryPoint
+import id.muhariananda.uimage.data.models.UnsplashPhoto
 import id.muhariananda.uimage.databinding.FragmentImageSearchBinding
 
 @AndroidEntryPoint
-class ImageSearchFragment : Fragment() {
+class ImageSearchFragment : Fragment(), ImageAdapter.OnClickItemListener{
 
     private var _binding: FragmentImageSearchBinding? = null
     private val binding get() = _binding!!
 
     private val viewModel by viewModels<ImageSearchViewModel>()
-    private val adapter by lazy { ImageAdapter() }
+    private val adapter by lazy { ImageAdapter(this) }
 
     override fun onCreateView(
         inflater: LayoutInflater, container: ViewGroup?,
@@ -48,6 +50,11 @@ class ImageSearchFragment : Fragment() {
     override fun onDestroy() {
         super.onDestroy()
         _binding = null
+    }
+
+    override fun onItemClick(image: UnsplashPhoto) {
+        val action = ImageSearchFragmentDirections.actionSearchImageFragmentToDetailImageFragment(image)
+        findNavController().navigate(action)
     }
 
     private fun setupToolbar() {
@@ -97,9 +104,8 @@ class ImageSearchFragment : Fragment() {
 
     private fun searchResults() {
         binding.searchView.apply {
-            this.isFocusable = true
             this.isIconified = false
-            this.requestFocusFromTouch()
+            this.onActionViewExpanded()
 
             if (query.isEmpty()) {
                 this.setIconifiedByDefault(false)

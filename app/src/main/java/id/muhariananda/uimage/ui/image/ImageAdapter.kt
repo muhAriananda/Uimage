@@ -12,7 +12,7 @@ import id.muhariananda.uimage.R
 import id.muhariananda.uimage.data.models.UnsplashPhoto
 import id.muhariananda.uimage.databinding.ItemRowImageBinding
 
-class ImageAdapter :
+class ImageAdapter(private val listener: OnClickItemListener) :
     PagingDataAdapter<UnsplashPhoto, ImageAdapter.ImageViewHolder>(IMAGE_COMPARATOR) {
 
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): ImageViewHolder {
@@ -32,8 +32,20 @@ class ImageAdapter :
         }
     }
 
-    class ImageViewHolder(private val binding: ItemRowImageBinding) :
+    inner class ImageViewHolder(private val binding: ItemRowImageBinding) :
         RecyclerView.ViewHolder(binding.root) {
+
+        init {
+            binding.root.setOnClickListener {
+                val position = bindingAdapterPosition
+                if (position != RecyclerView.NO_POSITION) {
+                    val item = getItem(position)
+                    item?.let {
+                        listener.onItemClick(item)
+                    }
+                }
+            }
+        }
 
         fun bind(item: UnsplashPhoto) {
 
@@ -43,7 +55,6 @@ class ImageAdapter :
 
                 Glide.with(itemView)
                     .load(item.urls.regular)
-                    .centerCrop()
                     .transition(DrawableTransitionOptions.withCrossFade())
                     .apply(
                         RequestOptions()
@@ -60,6 +71,10 @@ class ImageAdapter :
             }
 
         }
+    }
+
+    interface OnClickItemListener {
+        fun onItemClick(item: UnsplashPhoto)
     }
 
     companion object {
