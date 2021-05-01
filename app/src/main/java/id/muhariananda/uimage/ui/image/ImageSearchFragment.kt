@@ -4,6 +4,8 @@ import android.os.Bundle
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
+import androidx.appcompat.app.AppCompatActivity
+import androidx.appcompat.widget.SearchView
 import androidx.core.view.isVisible
 import androidx.fragment.app.Fragment
 import androidx.fragment.app.viewModels
@@ -19,6 +21,7 @@ class ImageSearchFragment : Fragment() {
     private val binding get() = _binding!!
 
     private val viewModel by viewModels<ImageSearchViewModel>()
+    private val adapter by lazy { ImageAdapter() }
 
     override fun onCreateView(
         inflater: LayoutInflater, container: ViewGroup?,
@@ -31,7 +34,29 @@ class ImageSearchFragment : Fragment() {
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
 
-        val adapter = ImageAdapter()
+        setupToolbar()
+        setupRecyclerview()
+        loadStateHandle()
+        searchResults()
+
+        viewModel.images.observe(viewLifecycleOwner) {
+            adapter.submitData(viewLifecycleOwner.lifecycle, it)
+        }
+
+    }
+
+    override fun onDestroy() {
+        super.onDestroy()
+        _binding = null
+    }
+
+    private fun setupToolbar() {
+        if (activity is AppCompatActivity) {
+            (activity as AppCompatActivity).setSupportActionBar(binding.toolbar)
+        }
+    }
+
+    private fun setupRecyclerview() {
         binding.apply {
             recyclerview.setHasFixedSize(true)
             recyclerview.layoutManager = StaggeredGridLayoutManager(
@@ -48,7 +73,9 @@ class ImageSearchFragment : Fragment() {
                 adapter.retry()
             }
         }
+    }
 
+    private fun loadStateHandle() {
         adapter.addLoadStateListener { loadState ->
             binding.apply {
                 recyclerview.isVisible = loadState.source.refresh is LoadState.NotLoading
@@ -57,22 +84,43 @@ class ImageSearchFragment : Fragment() {
                 tvError.isVisible = loadState.source.refresh is LoadState.Error
                 btnRetry.isVisible = loadState.source.refresh is LoadState.Error
 
+                //empty list results
                 if (loadState.source.refresh is LoadState.NotLoading &&
-                        loadState.append.endOfPaginationReached &&
-                        adapter.itemCount < 1) {
+                    loadState.append.endOfPaginationReached &&
+                    adapter.itemCount < 1
+                ) {
                     recyclerview.isVisible = true
                 }
             }
         }
-
-        viewModel.images.observe(viewLifecycleOwner) {
-            adapter.submitData(viewLifecycleOwner.lifecycle, it)
-        }
-
     }
 
-    override fun onDestroy() {
-        super.onDestroy()
-        _binding = null
+    private fun searchResults() {
+        binding.searchView.apply {
+            this.isFocusable = true
+            this.isIconified = false
+            this.requestFocusFromTouch()
+
+            if (query.isEmpty()) {
+                this.setIconifiedByDefault(false)
+            } else {
+                this.setIconifiedByDefault(true)
+            }
+
+            this.setOnQueryTextListener(object : SearchView.OnQueryTextListener {
+                override fun onQueryTextSubmit(query: String?): Boolean {
+                    query?.let {
+                        binding.recyclerview.scrollToPosition(0)
+                        viewModel.searchImage(it)
+                    }
+                    return true
+                }
+
+                override fun onQueryTextChange(newText: String?): Boolean {
+                    return true
+                }
+            })
+            this.clearFocus()
+        }
     }
 }
