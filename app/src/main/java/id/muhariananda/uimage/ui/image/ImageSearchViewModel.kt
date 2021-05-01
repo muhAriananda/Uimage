@@ -1,6 +1,6 @@
 package id.muhariananda.uimage.ui.image
 
-import androidx.lifecycle.MutableLiveData
+import androidx.lifecycle.SavedStateHandle
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.switchMap
 import androidx.lifecycle.viewModelScope
@@ -11,10 +11,11 @@ import javax.inject.Inject
 
 @HiltViewModel
 class ImageSearchViewModel @Inject constructor(
-    private val repository: ImageRepository
-): ViewModel() {
+    private val repository: ImageRepository,
+    state: SavedStateHandle
+) : ViewModel() {
 
-    private val currentQuery = MutableLiveData(DEFAULT_QUERY)
+    private val currentQuery = state.getLiveData(CURRENT_QUERY, DEFAULT_QUERY)
     val images = currentQuery.switchMap { query ->
         repository.getSearchResult(query).cachedIn(viewModelScope)
     }
@@ -24,6 +25,7 @@ class ImageSearchViewModel @Inject constructor(
     }
 
     companion object {
+        private const val CURRENT_QUERY = "current_query"
         private const val DEFAULT_QUERY = "art"
     }
 

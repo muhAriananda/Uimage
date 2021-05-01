@@ -6,6 +6,7 @@ import android.os.Bundle
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
+import androidx.appcompat.app.AppCompatActivity
 import androidx.fragment.app.Fragment
 import androidx.navigation.fragment.navArgs
 import coil.load
@@ -37,7 +38,6 @@ class ImageDetailFragment : Fragment() {
 
         val item = arg.photo
         populateView(item)
-
     }
 
     override fun onDestroy() {
@@ -47,22 +47,6 @@ class ImageDetailFragment : Fragment() {
 
     private fun populateView(item: UnsplashPhoto) {
         binding.apply {
-
-//            Glide.with(this@ImageDetailFragment)
-//                .load(item.user.urls.small)
-//                .circleCrop()
-//                .into(imgProfil)
-//
-//            Glide.with(this@ImageDetailFragment)
-//                .load(item.urls.regular)
-//                .transition(DrawableTransitionOptions.withCrossFade())
-//                .apply(
-//                    RequestOptions()
-//                        .placeholder(R.color.city_light)
-//                        .error(R.drawable.ic_error_image)
-//                ).into(imgDetail)
-
-
             val uri = Uri.parse(item.user.attributionUrls)
             val intentView = Intent(Intent.ACTION_VIEW, uri)
             tvUrls.paint.isUnderlineText = true
@@ -88,11 +72,12 @@ class ImageDetailFragment : Fragment() {
                 placeholder(R.color.city_light)
                 transformations(
                     RoundedCornersTransformation(
-                        bottomLeft = 70f,
-                        bottomRight = 70f
+                        bottomLeft = 65f,
+                        bottomRight = 65f
                     )
                 )
             }
+            imgDetail.layoutParams.height = item.height / 4
 
             imgProfil.load(item.user.urls.small) {
                 crossfade(true)

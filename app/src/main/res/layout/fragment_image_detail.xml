@@ -5,11 +5,11 @@
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     android:fillViewport="true"
-    tools:context=".ui.image.ImageDetailFragment">
+    android:background="@color/lynx_white">
 
     <androidx.constraintlayout.widget.ConstraintLayout
         android:layout_width="match_parent"
-        android:layout_height="wrap_content">
+        android:layout_height="match_parent">
 
         <ImageView
             android:id="@+id/img_detail"
@@ -35,31 +35,34 @@
             app:backgroundTint="@color/blue_nights"
             app:layout_constraintBottom_toBottomOf="@+id/img_detail"
             app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintHorizontal_bias="0.84"
             app:layout_constraintStart_toStartOf="@+id/img_detail"
             app:layout_constraintTop_toBottomOf="@+id/img_detail"
             app:tint="@color/white" />
 
         <ImageView
             android:id="@+id/img_profil"
-            android:layout_width="20dp"
-            android:layout_height="20dp"
-            android:layout_marginEnd="8dp"
+            android:layout_width="24dp"
+            android:layout_height="24dp"
+            android:layout_marginStart="24dp"
             android:contentDescription="@string/profile_image"
             app:layout_constraintBottom_toBottomOf="@+id/tv_detail_username"
-            app:layout_constraintEnd_toStartOf="@+id/tv_detail_username"
+            app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toTopOf="@+id/tv_detail_username"
             tools:src="@tools:sample/avatars" />
 
         <TextView
             android:id="@+id/tv_detail_username"
-            android:layout_width="wrap_content"
+            android:layout_width="0dp"
             android:layout_height="wrap_content"
+            android:layout_marginStart="8dp"
             android:layout_marginTop="16dp"
+            android:layout_marginEnd="24dp"
             android:text="@string/username"
             android:textColor="@color/electromagnetic"
             android:textSize="14sp"
-            app:layout_constraintEnd_toEndOf="@+id/btn_share"
-            app:layout_constraintStart_toStartOf="@+id/btn_share"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toEndOf="@+id/img_profil"
             app:layout_constraintTop_toBottomOf="@+id/btn_share" />
 
         <TextView
@@ -124,4 +127,5 @@
             app:trackCornerRadius="24dp" />
 
     </androidx.constraintlayout.widget.ConstraintLayout>
+
 </ScrollView>
