@@ -1,5 +1,6 @@
 package id.muhariananda.uimage.data
 
+import android.util.Log
 import androidx.paging.PagingSource
 import androidx.paging.PagingState
 import id.muhariananda.uimage.data.api.ApiService
@@ -14,20 +15,16 @@ class ImagePagingSource(
 ) : PagingSource<Int, UnsplashPhoto>() {
 
     override suspend fun load(params: LoadParams<Int>): LoadResult<Int, UnsplashPhoto> {
+        val position = params.key ?: Costant.USPLASH_STARTING_PAGE_INDEX
         return try {
-            val position = params.key ?: Costant.USPLASH_STARTING_PAGE_INDEX
             val response = apiService.searchPhoto(query, position, params.loadSize)
-            val item = response.result
-
-            val prevKey =
-                if (position == Costant.USPLASH_STARTING_PAGE_INDEX) null else position - 1
-            val nextKey =
-                if (item.isEmpty()) null else position + 1
+            val images = response.results
+            Log.d("TAG", images.toString())
 
             LoadResult.Page(
-                data = item,
-                prevKey = prevKey,
-                nextKey = nextKey
+                data = images,
+                prevKey = if (position == Costant.USPLASH_STARTING_PAGE_INDEX) null else position - 1,
+                nextKey = if (images.isEmpty()) null else position + 1
             )
         } catch (e: IOException) {
             LoadResult.Error(e)

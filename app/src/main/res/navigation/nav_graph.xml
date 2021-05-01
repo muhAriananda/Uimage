@@ -3,24 +3,26 @@
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
     android:id="@+id/nav_graph"
-    app:startDestination="@id/homeFragment">
+    app:startDestination="@id/searchImageFragment">
 
     <fragment
-        android:id="@+id/homeFragment"
-        android:name="id.muhariananda.uimage.HomeFragment"
+        android:id="@+id/searchImageFragment"
+        android:name="id.muhariananda.uimage.ui.image.ImageSearchFragment"
         android:label="fragment_home"
         tools:layout="@layout/fragment_image_search" >
         <action
             android:id="@+id/action_homeFragment_to_detailImageFragment"
             app:destination="@id/detailImageFragment" />
     </fragment>
+
     <fragment
         android:id="@+id/detailImageFragment"
-        android:name="id.muhariananda.uimage.DetailImageFragment"
+        android:name="id.muhariananda.uimage.ui.image.ImageDetailFragment"
         android:label="fragment_detail_image"
         tools:layout="@layout/fragment_image_detail" >
         <action
             android:id="@+id/action_detailImageFragment_to_homeFragment"
-            app:destination="@id/homeFragment" />
+            app:destination="@id/searchImageFragment" />
     </fragment>
+
 </navigation>

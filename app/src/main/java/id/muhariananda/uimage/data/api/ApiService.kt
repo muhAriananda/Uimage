@@ -1,7 +1,6 @@
 package id.muhariananda.uimage.data.api
 
 import id.muhariananda.uimage.BuildConfig
-import id.muhariananda.uimage.data.models.UnsplashResponse
 import retrofit2.http.GET
 import retrofit2.http.Headers
 import retrofit2.http.Query

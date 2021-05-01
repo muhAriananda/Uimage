@@ -26,10 +26,11 @@
     </com.google.android.material.appbar.AppBarLayout>
 
     <androidx.recyclerview.widget.RecyclerView
-        android:id="@+id/rv_image"
+        android:id="@+id/recyclerview"
         android:layout_width="0dp"
         android:layout_height="0dp"
-        app:layoutManager="androidx.recyclerview.widget.StaggeredGridLayoutManager"
+        android:layout_marginStart="8dp"
+        android:layout_marginEnd="16dp"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintHorizontal_bias="0.5"
@@ -42,6 +43,7 @@
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:indeterminate="true"
+        android:visibility="invisible"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintHorizontal_bias="0.5"
@@ -50,26 +52,28 @@
         app:trackCornerRadius="24dp" />
 
     <ImageView
-        android:id="@+id/imageView"
+        android:id="@+id/imgError"
         android:layout_width="100dp"
         android:layout_height="100dp"
         android:contentDescription="@string/not_loaded_result"
         android:src="@drawable/ic_cloud_soild"
+        android:visibility="invisible"
         app:layout_constraintBottom_toBottomOf="@+id/progressBar"
         app:layout_constraintEnd_toEndOf="@+id/progressBar"
         app:layout_constraintStart_toStartOf="@+id/progressBar"
         app:layout_constraintTop_toTopOf="@+id/progressBar" />
 
     <TextView
-        android:id="@+id/textView"
+        android:id="@+id/tv_error"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_marginTop="8dp"
         android:text="@string/not_loaded_result"
         android:textColor="@color/city_light"
-        app:layout_constraintEnd_toEndOf="@+id/imageView"
-        app:layout_constraintStart_toStartOf="@+id/imageView"
-        app:layout_constraintTop_toBottomOf="@+id/imageView" />
+        android:visibility="invisible"
+        app:layout_constraintEnd_toEndOf="@+id/imgError"
+        app:layout_constraintStart_toStartOf="@+id/imgError"
+        app:layout_constraintTop_toBottomOf="@+id/imgError" />
 
     <Button
         android:id="@+id/btn_retry"
@@ -77,8 +81,9 @@
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:text="@string/retry"
-        app:layout_constraintEnd_toEndOf="@+id/textView"
-        app:layout_constraintStart_toStartOf="@+id/textView"
-        app:layout_constraintTop_toBottomOf="@+id/textView" />
+        android:visibility="invisible"
+        app:layout_constraintEnd_toEndOf="@+id/tv_error"
+        app:layout_constraintStart_toStartOf="@+id/tv_error"
+        app:layout_constraintTop_toBottomOf="@+id/tv_error" />
 
 </androidx.constraintlayout.widget.ConstraintLayout>
