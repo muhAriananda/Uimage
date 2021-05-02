@@ -3,7 +3,7 @@ UImage is a simple android application whose main function is to search for imag
 
 <img src="/results/Screenshot1.png" width="260">&emsp;<img src="/results/Screenshot2.png" width="260">
 
-## Tech tack 
+## Tech Stack 
 - Paging3
 - Dagger Hilt
 - Coroutines
